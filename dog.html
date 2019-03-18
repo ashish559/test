@@ -1,0 +1,66 @@
+<html>
+<head>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CuteDogs</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></head>
+    
+   
+    <body>
+        <div class="container-flux" align-items: center;
+            text-align: center;
+            background-color: grey;
+            padding: 10px;>
+    <header id="nav" onclick="location.reload()"  margin-left: 50px><span onclick="toggleMenu()"></span>Cute Dogs</header>
+        
+            <div class="jumbotron"  display: flex;
+            flex-direction: column;
+            align-items: center>
+            
+         <p id="p1"></p>
+            <div id="d1"></div>
+            
+                <button type="submit" onclick="loading()" id="button"  background-color: blue;
+            font-style: normal;
+            color: white;>Get Me more Cute Dogs</button>
+        
+         <script>
+               function loading(){
+                   document.getElementById("p1").innerHTML="Please wait while the Image Loads"
+              var xhr = new XMLHttpRequest();
+
+    xhr.open('GET','https://cors-anywhere.herokuapp.com/https://dog.ceo/api/breeds/image/random')
+    xhr.setRequestHeader("Content-Type", "text/html; charset=UTF-8")
+    xhr.setRequestHeader("Access-Control-Allow-Origin","*")
+    xhr.send();
+                   var state=xhr.readyState;
+                   if(state!==4){
+                    document.getElementById("p1").style.display="block";
+                   document.getElementById("d1").style.display="none";                   
+                   }
+            
+    xhr.onreadystatechange = function (){
+        var state=xhr.readyState;
+        if(state==4){
+            document.getElementById("p1").style.display="none";
+                   document.getElementById("d1").style.display="block";       
+        }
+        if(xhr.readyState === 4 && xhr.status === 200) {
+            
+         var output= JSON.parse(xhr.response)
+        var image1=output.message;
+         document.getElementById("d1").innerHTML='<img src='+image1+'>'+'</img>'
+        
+            console.log(output.message)
+         }   }
+            
+               }
+             
+   
+ </script>
+            </div>
+            </div>
+    </body>
+</html>
